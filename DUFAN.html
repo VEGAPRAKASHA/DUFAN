@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>One Time Ticket to Dufan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#fff7fb;
+  --card:#ffffff;
+  --text:#241923;
+  --muted:#8d7486;
+  --line:#ead6e3;
+  --pink:#ff4f94;
+  --pink2:#ff82b6;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:"Outfit",sans-serif;
+  background:
+    linear-gradient(rgba(255,255,255,.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.45) 1px, transparent 1px),
+    radial-gradient(circle at top,#ffe3ef 0%,#ffd4e6 35%,#ffc7de 70%,#ffbfd9 100%);
+  background-size:28px 28px,28px 28px,100% 100%;
+  min-height:100vh;
+  padding:40px 20px;
+  display:flex;
+  justify-content:center;
+}
+
+.wrap{
+  width:100%;
+  max-width:430px;
+}
+
+.title{
+  text-align:center;
+  color:#7a5269;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:.8rem;
+  margin-bottom:18px;
+}
+
+.ticket{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.6);
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(255,79,148,.18);
+  position:relative;
+}
+
+.ticket::before,
+.ticket::after{
+  content:"";
+  position:absolute;
+  width:34px;
+  height:34px;
+  background:#ffd4e6;
+  border-radius:50%;
+  top:58%;
+  transform:translateY(-50%);
+}
+
+.ticket::before{left:-17px}
+.ticket::after{right:-17px}
+
+.hero{
+  background:linear-gradient(135deg,#ff5b99,#ff8bbc);
+  color:#fff;
+  padding:28px;
+  position:relative;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top right, rgba(255,255,255,.35), transparent 40%);
+}
+
+.hero h1{
+  font-size:2rem;
+  line-height:1.05;
+  font-weight:800;
+}
+
+.hero p{
+  margin-top:10px;
+  opacity:.95;
+  max-width:280px;
+}
+
+.body{
+  padding:24px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.item{
+  background:#fff8fc;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+}
+
+.label{
+  font-size:.72rem;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.value{
+  margin-top:8px;
+  font-size:1rem;
+  font-weight:700;
+  color:var(--text);
+}
+
+.divider{
+  border-top:2px dashed var(--line);
+  margin:24px 0;
+}
+
+.pass{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.qr{
+  width:96px;
+  height:96px;
+  border-radius:16px;
+  background:
+    linear-gradient(90deg,#111 8px,transparent 8px) 0 0/18px 18px,
+    linear-gradient(#111 8px,transparent 8px) 0 0/18px 18px,
+    linear-gradient(90deg,transparent 8px,#111 8px) 9px 9px/18px 18px,
+    linear-gradient(transparent 8px,#111 8px) 9px 9px/18px 18px,
+    #fff;
+  border:6px solid #111;
+}
+
+.pass h3{
+  color:var(--pink);
+  font-size:1.05rem;
+  line-height:1.25;
+}
+
+.pass p{
+  margin-top:6px;
+  color:#7b6474;
+  line-height:1.5;
+  font-size:.92rem;
+}
+
+.barcode{
+  margin-top:20px;
+  height:64px;
+  border-radius:12px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #111 0 2px,
+      transparent 2px 4px,
+      #111 4px 5px,
+      transparent 5px 8px,
+      #111 8px 10px,
+      transparent 10px 13px
+    );
+}
+
+.code{
+  text-align:center;
+  margin-top:10px;
+  letter-spacing:3px;
+  color:#8d7486;
+  font-size:.82rem;
+}
+
+.countdown{
+  margin:22px 0;
+  background:#fff8fc;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:18px;
+  text-align:center;
+}
+
+.countdown .small{
+  color:var(--muted);
+  font-size:.82rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+#timer{
+  margin-top:10px;
+  font-size:1.4rem;
+  font-weight:800;
+  color:var(--pink);
+}
+
+.note{
+  text-align:center;
+  color:#6f5a69;
+  line-height:1.7;
+  font-size:.94rem;
+}
+
+button{
+  width:100%;
+  margin-top:22px;
+  border:none;
+  border-radius:18px;
+  padding:16px;
+  background:linear-gradient(135deg,var(--pink),var(--pink2));
+  color:#fff;
+  font-weight:800;
+  font-size:1rem;
+  cursor:pointer;
+  box-shadow:0 14px 30px rgba(255,79,148,.25);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 36px rgba(255,79,148,.32);
+}
+
+button.used{
+  background:#c9c9c9;
+  box-shadow:none;
+  cursor:not-allowed;
+}
+
+.status{
+  text-align:center;
+  margin-top:14px;
+  font-weight:700;
+  color:var(--pink);
+}
+
+.footer{
+  text-align:center;
+  color:#8d7486;
+  font-size:.8rem;
+  margin-top:18px;
+}
+
+.confetti{
+  position:fixed;
+  width:10px;
+  height:14px;
+  top:-20px;
+  border-radius:3px;
+  pointer-events:none;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
+}
+
+@media (max-width:420px){
+  .hero h1{font-size:1.8rem}
+  .pass{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="title">A ticket made only for us</div>
+
+  <div class="ticket" id="ticket">
+    <div class="hero">
+      <h1>One Time Ticket to Dufan</h1>
+      <p>One date. One ticket. A memory I want to keep for the rest of my life.</p>
+    </div>
+
+    <div class="body">
+      <div class="grid">
+        <div class="item">
+          <div class="label">Passenger</div>
+          <div class="value">Velyta ♡</div>
+        </div>
+        <div class="item">
+          <div class="label">Companion</div>
+          <div class="value">Vega</div>
+        </div>
+        <div class="item">
+          <div class="label">Admission</div>
+          <div class="value">One Time</div>
+        </div>
+        <div class="item">
+          <div class="label">Status</div>
+          <div class="value" id="statusText">Unused</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="pass">
+        <div class="qr"></div>
+        <div>
+          <h3>For the girl I want to laugh with forever.</h3>
+          <p>This ticket is for one unforgettable day at Dufan, where every ride, every photo, and every moment becomes part of our story.</p>
+        </div>
+      </div>
+
+      <div class="barcode"></div>
+      <div class="code">DFN 2026 0817 1430</div>
+
+      <div class="countdown">
+        <div class="small">Countdown to our Dufan day</div>
+        <div id="timer">Loading...</div>
+      </div>
+
+      <div class="note">
+        This ticket can only be redeemed once, because I only need one day with you to create a memory that lasts forever.
+      </div>
+
+      <button id="redeemBtn">Redeem Once</button>
+      <div class="status" id="statusMsg"></div>
+    </div>
+  </div>
+
+  <div class="footer">Made with love for Velyta</div>
+</div>
+
+<script>
+const KEY = "velyta_dufan_ticket_once_v2";
+const btn = document.getElementById("redeemBtn");
+const statusMsg = document.getElementById("statusMsg");
+const statusText = document.getElementById("statusText");
+
+function confetti(){
+  const colors=["#ff4f94","#ff82b6","#ffd4e6","#ffffff"];
+  for(let i=0;i<140;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration=(2.8+Math.random()*2)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+
+function render(){
+  const used = localStorage.getItem(KEY) === "used";
+  if(used){
+    btn.textContent = "Ticket Redeemed";
+    btn.classList.add("used");
+    btn.disabled = true;
+    statusMsg.textContent = "This ticket has already been redeemed.";
+    statusText.textContent = "Redeemed";
+  }
+}
+
+btn.addEventListener("click",()=>{
+  if(localStorage.getItem(KEY)==='used') return;
+  localStorage.setItem(KEY,"used");
+  confetti();
+  render();
+});
+
+render();
+
+const target = new Date("2026-08-17T09:00:00").getTime();
+const timer = document.getElementById("timer");
+
+function updateTimer(){
+  const diff = target - Date.now();
+  if(diff <= 0){
+    timer.textContent = "It's Dufan Day! 🎡";
+    return;
+  }
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff / (1000*60*60)) % 24);
+  const m = Math.floor((diff / (1000*60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+  timer.textContent = `${d}d ${h}h ${m}m ${s}s`;
+}
+
+updateTimer();
+setInterval(updateTimer,1000);
+</script>
+
+</body>
+</html>
