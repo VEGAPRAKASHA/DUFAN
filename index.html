@@ -2,22 +2,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Velyta — The Forbidden Pink Sea</title>
+<title>A Universe Made for Velyta ♡</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
-/* =====================================================
+/* =========================================================
    RESET
-===================================================== */
+========================================================= */
 
 *{
     margin:0;
@@ -30,1014 +28,514 @@ html{
 }
 
 body{
-    background:#080309;
+    background:#09050d;
     color:#fff;
-    font-family:"Manrope",sans-serif;
+    font-family:"DM Sans",sans-serif;
     overflow-x:hidden;
 }
 
-::selection{
-    background:#ff5eaf;
-    color:white;
+button{
+    font-family:inherit;
 }
-
-
-/* =====================================================
-   GLOBAL
-===================================================== */
 
 :root{
-
-    --pink:#ff5eae;
-    --pink-light:#ffb8dd;
-    --pink-soft:#ffd9eb;
-    --deep:#080309;
-    --purple:#251025;
-    --purple2:#401634;
-    --gold:#ffd39b;
-
+    --pink:#ff82bd;
+    --pink2:#ffb7d8;
+    --pink3:#ffd9e9;
+    --purple:#b28cff;
+    --dark:#09050d;
+    --muted:#b9a7b6;
 }
 
-.noise{
 
-    position:fixed;
-    inset:0;
-
-    pointer-events:none;
-
-    z-index:999;
-
-    opacity:.035;
-
-    background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
-
-}
+/* =========================================================
+   CUSTOM CURSOR GLOW
+========================================================= */
 
 .cursor-glow{
-
     position:fixed;
-
-    width:300px;
-    height:300px;
-
+    width:280px;
+    height:280px;
     border-radius:50%;
-
     pointer-events:none;
-
     z-index:0;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(
+        circle,
+        rgba(255,112,181,.10),
+        transparent 68%
+    );
+}
+
+
+/* =========================================================
+   INTRO SCREEN
+========================================================= */
+
+.intro{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
 
     background:
         radial-gradient(
-            circle,
-            rgba(255,84,174,.09),
-            transparent 65%
+            circle at 50% 35%,
+            rgba(255,115,184,.22),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            #160b20,
+            #08040c
         );
 
-    transform:translate(-50%,-50%);
-
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
 }
 
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-nav{
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100%;
-
-    z-index:100;
-
-    padding:25px 5%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:space-between;
-
-    transition:.4s;
-
+.intro.hidden{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
 }
 
-nav.scrolled{
-
-    padding:15px 5%;
-
-    background:
-        rgba(8,3,9,.75);
-
-    backdrop-filter:blur(20px);
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.06);
-
+.intro-inner{
+    width:min(650px,90%);
 }
 
-.logo{
-
-    font-family:"Cinzel",serif;
-
-    font-size:17px;
-
+.intro-small{
+    color:var(--pink2);
+    font-size:10px;
     letter-spacing:5px;
-
-    color:#fff;
-
+    text-transform:uppercase;
+    margin-bottom:30px;
 }
 
-.logo span{
+.intro-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(65px,13vw,120px);
+    line-height:.78;
+    font-weight:500;
+}
+
+.intro-title span{
     color:var(--pink);
 }
 
-.nav-right{
-
-    display:flex;
-
-    gap:25px;
-
-    align-items:center;
-
+.intro-sub{
+    color:#bca9b9;
+    margin:35px auto;
+    max-width:470px;
+    line-height:1.8;
+    font-size:13px;
 }
 
-.nav-right a{
-
-    color:#c7a9b9;
-
-    text-decoration:none;
-
-    font-size:11px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-}
-
-.nav-right a:hover{
+.enter-button{
+    border:1px solid rgba(255,170,210,.4);
+    background:rgba(255,255,255,.04);
     color:#fff;
+    padding:16px 27px;
+    border-radius:100px;
+    cursor:pointer;
+    transition:.35s;
+}
+
+.enter-button:hover{
+    background:var(--pink);
+    border-color:var(--pink);
+    transform:translateY(-3px);
+    box-shadow:0 15px 50px rgba(255,80,165,.3);
 }
 
 
-/* =====================================================
+/* =========================================================
+   MAIN
+========================================================= */
+
+main{
+    position:relative;
+    background:#09050d;
+}
+
+
+/* =========================================================
    HERO
-===================================================== */
+========================================================= */
 
 .hero{
-
     min-height:100vh;
-
     position:relative;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
     overflow:hidden;
 
-    background:
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
+    text-align:center;
+
+    background:
         radial-gradient(
             circle at 50% 20%,
-            rgba(255,90,176,.23),
+            rgba(255,125,190,.18),
             transparent 28%
         ),
-
         radial-gradient(
-            circle at 80% 80%,
-            rgba(131,37,115,.22),
-            transparent 30%
+            circle at 15% 80%,
+            rgba(154,104,255,.12),
+            transparent 25%
         ),
-
         linear-gradient(
             180deg,
-            #130719 0%,
-            #240c25 48%,
-            #0a040b 100%
+            #160b20,
+            #0b0610 75%,
+            #09050d
         );
-
 }
 
 
 /* stars */
 
-.stars{
-
+.star-field{
     position:absolute;
-
     inset:0;
 
     background-image:
-
-        radial-gradient(
-            white 1px,
-            transparent 1px
-        ),
-
-        radial-gradient(
-            #ffb4da 1px,
-            transparent 1px
-        );
+        radial-gradient(#fff 1px,transparent 1px),
+        radial-gradient(#ffb5d9 1px,transparent 1px);
 
     background-size:
-        120px 120px,
-        190px 190px;
+        90px 90px,
+        145px 145px;
 
-    opacity:.35;
+    background-position:
+        20px 10px,
+        60px 80px;
 
+    opacity:.3;
 }
 
 
-/* huge moon */
+/* moon */
 
 .moon{
-
     position:absolute;
 
-    width:clamp(220px,32vw,480px);
-
-    height:clamp(220px,32vw,480px);
+    width:clamp(190px,30vw,420px);
+    height:clamp(190px,30vw,420px);
 
     border-radius:50%;
 
-    top:7%;
-
+    top:8%;
     left:50%;
 
     transform:translateX(-50%);
 
     background:
-
         radial-gradient(
             circle at 35% 30%,
-            #fff4fa,
-            #ffc9e3 45%,
-            #ed78b5 100%
+            #fff5fa,
+            #ffd0e4 45%,
+            #ed8bb9
         );
 
     box-shadow:
-
-        0 0 80px rgba(255,143,200,.45),
-
-        0 0 180px rgba(255,60,170,.22);
-
+        0 0 80px rgba(255,150,204,.35),
+        0 0 180px rgba(255,70,170,.15);
 }
 
 .moon::before{
-
     content:"";
 
     position:absolute;
 
-    width:28%;
-    height:28%;
+    width:22%;
+    height:22%;
 
-    left:18%;
-    top:24%;
+    left:20%;
+    top:23%;
 
     border-radius:50%;
 
-    background:rgba(205,98,151,.15);
-
+    background:rgba(192,102,151,.15);
 }
 
 .moon::after{
-
     content:"";
 
     position:absolute;
 
-    width:16%;
-    height:16%;
+    width:12%;
+    height:12%;
 
-    right:20%;
-    bottom:24%;
+    right:23%;
+    bottom:23%;
 
     border-radius:50%;
 
-    background:rgba(205,98,151,.14);
-
+    background:rgba(192,102,151,.12);
 }
 
 
-/* hero text */
+/* hero content */
 
 .hero-content{
-
     position:relative;
-
     z-index:5;
 
-    text-align:center;
+    width:min(900px,90%);
 
-    width:min(1000px,90%);
-
-    margin-top:80px;
-
+    padding-top:80px;
 }
 
-.eyebrow{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    color:#ffb8dc;
-
+.hero-kicker{
+    color:var(--pink2);
     font-size:10px;
-
     letter-spacing:5px;
-
     text-transform:uppercase;
-
-    margin-bottom:28px;
-
 }
 
-.eyebrow::before,
-.eyebrow::after{
-
-    content:"";
-
-    width:35px;
-
-    height:1px;
-
-    background:#ff6eb6;
-
+.hero-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(65px,12vw,145px);
+    line-height:.75;
+    font-weight:500;
+    margin:25px 0;
 }
 
-.hero h1{
-
-    font-family:"Cinzel",serif;
-
-    font-size:
-        clamp(55px,10vw,145px);
-
-    line-height:.84;
-
-    letter-spacing:-5px;
-
-    font-weight:600;
-
-}
-
-.hero h1 .pink{
-
+.hero-title .outline{
     color:transparent;
-
-    -webkit-text-stroke:
-        1px
-        rgba(255,164,211,.75);
-
-    text-shadow:
-        0 0 50px rgba(255,81,174,.25);
-
+    -webkit-text-stroke:1px rgba(255,177,213,.75);
 }
 
-.hero h1 .solid{
-
-    color:#ff9ccc;
-
-    text-shadow:
-        0 0 70px rgba(255,68,169,.35);
-
+.hero-title .pink{
+    color:var(--pink);
 }
 
-.hero-desc{
-
-    max-width:600px;
-
-    margin:40px auto;
-
-    color:#d6baca;
-
+.hero-description{
+    max-width:570px;
+    margin:35px auto;
+    color:#c5b2c0;
+    line-height:1.9;
     font-size:14px;
-
-    line-height:2;
-
 }
 
-.enter{
-
+.scroll-down{
     display:inline-flex;
-
     align-items:center;
+    gap:10px;
 
-    gap:15px;
-
-    padding:16px 25px;
-
-    color:white;
-
+    color:#fff;
     text-decoration:none;
 
-    border:1px solid rgba(255,172,213,.35);
-
-    background:rgba(255,255,255,.04);
-
-    backdrop-filter:blur(15px);
-
+    border:1px solid rgba(255,170,210,.25);
+    padding:13px 20px;
     border-radius:100px;
 
-    transition:.4s;
+    background:rgba(255,255,255,.03);
 
+    transition:.3s;
 }
 
-.enter:hover{
-
-    background:#ff5eae;
-
-    border-color:#ff5eae;
-
-    box-shadow:
-        0 0 50px rgba(255,72,169,.35);
-
-    transform:translateY(-4px);
-
+.scroll-down:hover{
+    background:rgba(255,110,180,.12);
 }
 
 
-/* =====================================================
-   SHIP
-===================================================== */
+/* floating hearts */
 
-.hero-ship{
-
+.floating-heart{
     position:absolute;
-
-    bottom:90px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    z-index:4;
-
-    font-size:clamp(80px,12vw,160px);
-
-    filter:
-        drop-shadow(
-            0 25px 20px rgba(0,0,0,.6)
-        );
-
-    animation:
-        shipFloat
-        5s
-        ease-in-out
-        infinite;
-
+    color:rgba(255,145,198,.55);
+    animation:floatHeart linear infinite;
+    pointer-events:none;
 }
 
-@keyframes shipFloat{
-
-    0%,100%{
-        transform:
-            translateX(-50%)
-            translateY(0)
-            rotate(-1deg);
+@keyframes floatHeart{
+    from{
+        transform:translateY(0) rotate(0);
     }
 
-    50%{
-        transform:
-            translateX(-50%)
-            translateY(-15px)
-            rotate(1deg);
+    to{
+        transform:translateY(-120vh) rotate(180deg);
     }
-
 }
 
 
-/* ocean */
-
-.ocean{
-
-    position:absolute;
-
-    bottom:0;
-
-    left:0;
-
-    width:100%;
-
-    height:150px;
-
-    background:
-
-        linear-gradient(
-            180deg,
-            transparent,
-            #080309
-        );
-
-    z-index:3;
-
-}
-
-
-/* =====================================================
-   SECTION
-===================================================== */
+/* =========================================================
+   COMMON SECTION
+========================================================= */
 
 section{
-
     position:relative;
-
-    padding:
-        150px 7%;
-
+    padding:130px 7%;
 }
 
-.section-number{
-
-    color:#ff6fb5;
-
-    font-size:10px;
-
-    letter-spacing:5px;
-
-    text-transform:uppercase;
-
+.section-kicker{
     text-align:center;
-
+    color:var(--pink);
+    font-size:9px;
+    letter-spacing:5px;
+    text-transform:uppercase;
     margin-bottom:18px;
-
 }
 
 .section-title{
-
-    font-family:"Cinzel",serif;
-
-    font-size:
-        clamp(38px,6vw,75px);
-
-    line-height:1;
-
     text-align:center;
-
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(45px,7vw,80px);
+    line-height:.9;
+    font-weight:500;
 }
 
-.section-title em{
-
-    color:#ff8fc5;
-
-    font-style:normal;
-
+.section-title span{
+    color:var(--pink);
 }
 
-.section-desc{
-
-    max-width:650px;
-
-    margin:30px auto 80px;
-
-    color:#bca2b0;
-
+.section-description{
+    max-width:620px;
+    margin:30px auto 70px;
     text-align:center;
-
-    font-size:14px;
-
-    line-height:2;
-
+    color:var(--muted);
+    line-height:1.9;
+    font-size:13px;
 }
 
 
-/* =====================================================
-   MAP
-===================================================== */
+/* =========================================================
+   LETTER
+========================================================= */
 
-.map-section{
-
+.letter-section{
     background:
-
         radial-gradient(
-            circle at center,
-            #3b1230,
-            transparent 55%
+            circle at 50% 40%,
+            rgba(255,104,179,.10),
+            transparent 45%
         ),
-
-        #080309;
-
+        #09050d;
 }
 
-.map-wrapper{
-
-    max-width:1100px;
-
+.letter-card{
+    max-width:760px;
     margin:auto;
 
-    position:relative;
+    padding:55px;
 
-    min-height:650px;
+    border-radius:28px;
 
-    border:
-        1px solid
-        rgba(255,166,211,.2);
-
-    border-radius:40px;
+    border:1px solid rgba(255,180,215,.14);
 
     background:
-
-        radial-gradient(
-            circle at 30% 30%,
-            rgba(255,104,180,.09),
-            transparent 30%
-        ),
-
-        rgba(255,255,255,.025);
-
-    overflow:hidden;
-
-}
-
-.map-wrapper::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:25px;
-
-    border:
-        1px dashed
-        rgba(255,177,216,.16);
-
-    border-radius:30px;
-
-}
-
-.map-label{
-
-    position:absolute;
-
-    top:45px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    color:#cfaabb;
-
-    font-size:9px;
-
-    letter-spacing:5px;
-
-    text-transform:uppercase;
-
-}
-
-.route{
-
-    position:absolute;
-
-    left:15%;
-
-    top:52%;
-
-    width:70%;
-
-    height:120px;
-
-    border-top:
-        1px dashed
-        rgba(255,133,194,.5);
-
-    border-radius:50%;
-
-    transform:rotate(-8deg);
-
-}
-
-
-/* islands */
-
-.map-island{
-
-    position:absolute;
-
-    width:110px;
-    height:110px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-size:38px;
-
-    background:
-
-        radial-gradient(
-            circle at 30% 30%,
-            #ffcae5,
-            #ff5cae 70%
-        );
-
-    box-shadow:
-
-        0 20px 50px rgba(0,0,0,.45),
-
-        0 0 40px rgba(255,76,169,.15);
-
-    transition:.4s;
-
-}
-
-.map-island:hover{
-
-    transform:
-        scale(1.12)
-        rotate(5deg);
-
-    box-shadow:
-        0 0 60px rgba(255,86,174,.45);
-
-}
-
-.map-island span{
-
-    position:absolute;
-
-    top:125px;
-
-    width:180px;
-
-    text-align:center;
-
-    color:#e7cad9;
-
-    font-size:11px;
-
-    letter-spacing:1px;
-
-}
-
-.island-a{
-    left:10%;
-    top:28%;
-}
-
-.island-b{
-    left:38%;
-    top:50%;
-}
-
-.island-c{
-    right:17%;
-    top:25%;
-}
-
-.island-d{
-    right:8%;
-    bottom:15%;
-}
-
-
-/* compass */
-
-.compass{
-
-    position:absolute;
-
-    right:40px;
-
-    top:40px;
-
-    width:80px;
-    height:80px;
-
-    border:
-        1px solid
-        rgba(255,200,225,.3);
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    color:#ffb4d9;
-
-    font-family:"Cinzel",serif;
-
-    font-size:25px;
-
-    animation:
-        compassSpin
-        15s
-        linear
-        infinite;
-
-}
-
-@keyframes compassSpin{
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-
-/* =====================================================
-   LOVE OCEAN
-===================================================== */
-
-.love-section{
-
-    background:
-
         linear-gradient(
-            180deg,
-            #080309,
-            #180819,
-            #080309
+            135deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.015)
         );
 
+    backdrop-filter:blur(20px);
 }
 
-.ocean-card{
+.letter-seal{
+    width:68px;
+    height:68px;
 
-    max-width:1000px;
+    border-radius:50%;
 
-    margin:auto;
+    display:grid;
+    place-items:center;
 
-    min-height:500px;
-
-    border-radius:40px;
-
-    position:relative;
-
-    overflow:hidden;
+    margin:0 auto 35px;
 
     background:
-
-        radial-gradient(
-            circle at 50% 20%,
-            rgba(255,93,176,.22),
-            transparent 30%
-        ),
-
         linear-gradient(
-            180deg,
-            #37112e,
-            #100610
+            145deg,
+            #ffb4d7,
+            #c64983
         );
-
-    border:
-        1px solid
-        rgba(255,161,208,.18);
-
-}
-
-.big-heart{
-
-    position:absolute;
-
-    left:50%;
-
-    top:50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    font-size:
-        clamp(120px,22vw,280px);
-
-    color:#ff74b8;
-
-    filter:
-        drop-shadow(
-            0 0 50px rgba(255,64,164,.45)
-        );
-
-    animation:
-        heartbeat
-        2.5s
-        ease-in-out
-        infinite;
-
-}
-
-@keyframes heartbeat{
-
-    0%,100%{
-        transform:
-            translate(-50%,-50%)
-            scale(1);
-    }
-
-    50%{
-        transform:
-            translate(-50%,-50%)
-            scale(1.08);
-    }
-
-}
-
-.love-orbit{
-
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    width:75%;
-    height:75%;
-
-    transform:
-        translate(-50%,-50%);
-
-    border:
-        1px solid
-        rgba(255,164,212,.18);
-
-    border-radius:50%;
-
-}
-
-.orbit-dot{
-
-    position:absolute;
-
-    width:10px;
-    height:10px;
-
-    background:#ff9bce;
-
-    border-radius:50%;
-
-    box-shadow:
-        0 0 20px #ff62ac;
-
-    top:-5px;
-    left:50%;
-
-}
-
-.love-copy{
-
-    position:absolute;
-
-    left:50%;
-    bottom:45px;
-
-    transform:translateX(-50%);
-
-    text-align:center;
-
-    width:90%;
-
-}
-
-.love-copy strong{
-
-    font-family:"Cinzel",serif;
 
     font-size:28px;
 
-    color:#ffe0ef;
-
+    box-shadow:
+        0 0 45px rgba(255,80,168,.25);
 }
 
-.love-copy p{
+.letter-content{
+    color:#d7c1ce;
+    font-family:"Cormorant Garamond",serif;
+    font-size:22px;
+    line-height:1.65;
+}
 
-    margin-top:10px;
+.letter-line{
+    opacity:0;
+    transform:translateY(10px);
+    transition:.8s ease;
+    margin-bottom:18px;
+}
 
-    color:#bca4b1;
+.letter-line.visible{
+    opacity:1;
+    transform:none;
+}
 
-    font-size:12px;
+.letter-controls{
+    margin-top:30px;
+    text-align:center;
+}
 
+.reveal-button{
+    border:1px solid rgba(255,160,205,.3);
+    background:rgba(255,100,180,.07);
+    color:#ffd9eb;
+    padding:13px 22px;
+    border-radius:100px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.reveal-button:hover{
+    background:rgba(255,100,180,.15);
+}
+
+.letter-progress{
+    height:3px;
+    background:rgba(255,255,255,.07);
+    margin-top:20px;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.letter-progress-fill{
+    height:100%;
+    width:0;
+    background:var(--pink);
+    transition:.7s;
 }
 
 
-/* =====================================================
-   COORDINATES
-===================================================== */
+/* =========================================================
+   MEMORY POLAROIDS
+========================================================= */
 
-.coordinates{
-
-    background:#080309;
-
+.memories-section{
+    background:
+        linear-gradient(
+            180deg,
+            #09050d,
+            #120817,
+            #09050d
+        );
 }
 
-.coordinates-grid{
-
-    max-width:1000px;
-
+.memory-grid{
+    max-width:1050px;
     margin:auto;
 
     display:grid;
@@ -1045,702 +543,955 @@ section{
     grid-template-columns:
         repeat(3,1fr);
 
-    border:
-        1px solid
-        rgba(255,255,255,.08);
+    gap:25px;
+}
 
-    border-radius:25px;
+.memory{
+    height:330px;
+    perspective:1000px;
+    cursor:pointer;
+}
+
+.memory-inner{
+    width:100%;
+    height:100%;
+
+    position:relative;
+
+    transition:
+        transform .8s;
+
+    transform-style:preserve-3d;
+}
+
+.memory.flipped .memory-inner{
+    transform:rotateY(180deg);
+}
+
+.memory-front,
+.memory-back{
+    position:absolute;
+    inset:0;
+
+    backface-visibility:hidden;
+
+    border-radius:20px;
 
     overflow:hidden;
 
+    border:
+        1px solid
+        rgba(255,180,215,.13);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,130,190,.13),
+            rgba(255,255,255,.025)
+        );
+
 }
 
-.coordinate{
+.memory-front{
+    padding:20px;
+}
 
-    padding:50px 25px;
+.memory-photo{
+    height:230px;
+
+    border-radius:14px;
+
+    display:grid;
+    place-items:center;
+
+    font-size:70px;
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(255,180,220,.28),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #5d2850,
+            #1c1023
+        );
+}
+
+.memory-label{
+    margin-top:15px;
+    color:#ffe1ee;
+    font-family:"Cormorant Garamond",serif;
+    font-size:21px;
+}
+
+.memory-back{
+    transform:rotateY(180deg);
+
+    padding:30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+.memory-back p{
+    color:#d1bac8;
+    line-height:1.8;
+    font-size:13px;
+}
+
+.memory-back strong{
+    display:block;
+    color:var(--pink2);
+    font-family:"Cormorant Garamond",serif;
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline-section{
+    background:#09050d;
+}
+
+.timeline{
+    max-width:850px;
+    margin:auto;
+    position:relative;
+}
+
+.timeline::before{
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    top:0;
+    bottom:0;
+
+    width:1px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(255,130,190,.45),
+            transparent
+        );
+}
+
+.timeline-item{
+    width:50%;
+    padding:25px 40px;
+    position:relative;
+}
+
+.timeline-item:nth-child(odd){
+    text-align:right;
+}
+
+.timeline-item:nth-child(even){
+    margin-left:50%;
+}
+
+.timeline-dot{
+    position:absolute;
+
+    width:13px;
+    height:13px;
+
+    border-radius:50%;
+
+    background:var(--pink);
+
+    box-shadow:
+        0 0 20px rgba(255,100,180,.7);
+
+    top:38px;
+}
+
+.timeline-item:nth-child(odd) .timeline-dot{
+    right:-7px;
+}
+
+.timeline-item:nth-child(even) .timeline-dot{
+    left:-7px;
+}
+
+.timeline-date{
+    color:var(--pink);
+    font-size:9px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.timeline-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:29px;
+    margin:8px 0;
+}
+
+.timeline-text{
+    color:#a997a4;
+    font-size:12px;
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   CONSTELLATION
+========================================================= */
+
+.constellation-section{
+    background:
+        radial-gradient(
+            circle at center,
+            #25102b,
+            #09050d 60%
+        );
+}
+
+.constellation{
+    max-width:900px;
+    height:470px;
+
+    margin:auto;
+
+    position:relative;
+
+    border:
+        1px solid
+        rgba(255,177,215,.10);
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255,100,180,.08),
+            transparent 40%
+        );
+}
+
+.constellation svg{
+    width:100%;
+    height:100%;
+}
+
+.constellation-line{
+    fill:none;
+    stroke:rgba(255,140,200,.28);
+    stroke-width:1;
+    stroke-dasharray:5 8;
+}
+
+.constellation-star{
+    fill:#fff;
+    cursor:pointer;
+    transition:.4s;
+    filter:
+        drop-shadow(
+            0 0 5px rgba(255,130,190,.8)
+        );
+}
+
+.constellation-star.active{
+    fill:var(--pink);
+    filter:
+        drop-shadow(
+            0 0 15px rgba(255,90,180,1)
+        );
+}
+
+.constellation-message{
+    text-align:center;
+    margin-top:25px;
+    color:#a997a5;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+.constellation-final{
+    max-width:600px;
+    margin:35px auto 0;
 
     text-align:center;
 
-    border-right:
-        1px solid
-        rgba(255,255,255,.08);
+    opacity:0;
 
+    transform:translateY(15px);
+
+    transition:1s;
 }
 
-.coordinate:last-child{
-    border-right:none;
+.constellation-final.show{
+    opacity:1;
+    transform:none;
 }
 
-.coordinate .icon{
-
-    font-size:30px;
-
-    margin-bottom:20px;
-
+.constellation-final h3{
+    font-family:"Cormorant Garamond",serif;
+    color:var(--pink);
+    font-size:42px;
+    font-weight:500;
 }
 
-.coordinate h3{
-
-    font-family:"Cinzel",serif;
-
-    color:#ff9ccc;
-
-    font-size:28px;
-
-}
-
-.coordinate p{
-
+.constellation-final p{
+    color:#c5afbd;
+    line-height:1.8;
+    font-size:13px;
     margin-top:10px;
-
-    color:#9d8593;
-
-    font-size:11px;
-
-    line-height:1.7;
-
 }
 
 
-/* =====================================================
-   TREASURE VAULT
-===================================================== */
+/* =========================================================
+   LOVE METER
+========================================================= */
 
-.vault{
+.love-section{
+    text-align:center;
 
+    background:
+        linear-gradient(
+            180deg,
+            #09050d,
+            #170a17,
+            #09050d
+        );
+}
+
+.love-number{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:
+        clamp(100px,20vw,230px);
+
+    line-height:.8;
+
+    color:var(--pink);
+
+    text-shadow:
+        0 0 60px rgba(255,70,170,.3);
+}
+
+.love-unit{
+    margin-top:25px;
+    color:#e5c9d8;
+    font-family:"Cormorant Garamond",serif;
+    font-size:26px;
+}
+
+.love-meter{
+    max-width:650px;
+    height:8px;
+
+    margin:35px auto 15px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.07);
+
+    overflow:hidden;
+}
+
+.love-meter-fill{
+    width:0;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a25bff,
+            #ff68ae
+        );
+
+    transition:width 2s ease;
+}
+
+.love-caption{
+    color:#8e7b88;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+
+/* =========================================================
+   SECRET
+========================================================= */
+
+.secret-section{
     min-height:100vh;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
-    background:
-
-        radial-gradient(
-            circle at center,
-            #49142f,
-            transparent 55%
-        ),
-
-        #080309;
 
     text-align:center;
 
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,80,170,.18),
+            transparent 50%
+        ),
+        #09050d;
 }
 
-.vault-inner{
-
-    width:min(850px,90%);
-
+.secret-inner{
+    width:min(750px,90%);
 }
 
-.lock{
+.secret-lock{
+    width:130px;
+    height:130px;
 
-    width:150px;
-    height:150px;
+    margin:40px auto;
 
-    margin:50px auto;
+    border-radius:50%;
+
+    display:grid;
+    place-items:center;
+
+    font-size:48px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffb2d6,
+            #bd407a
+        );
+
+    box-shadow:
+        0 0 70px rgba(255,70,170,.25);
+
+    cursor:pointer;
+
+    transition:.5s;
+}
+
+.secret-lock:hover{
+    transform:scale(1.08) rotate(5deg);
+}
+
+.secret-content{
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+
+    transform:translateY(20px);
+
+    transition:
+        1.2s ease;
+}
+
+.secret-content.open{
+    max-height:600px;
+    opacity:1;
+    transform:none;
+}
+
+.secret-content h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(55px,9vw,100px);
+    color:var(--pink);
+    line-height:.9;
+}
+
+.secret-content p{
+    max-width:600px;
+    margin:25px auto;
+    color:#ceb7c6;
+    line-height:2;
+    font-size:14px;
+}
+
+.final-heart{
+    font-size:70px;
+    color:var(--pink);
+    animation:beat 1.5s infinite;
+}
+
+@keyframes beat{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.12);
+    }
+}
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+.music-button{
+    position:fixed;
+
+    right:22px;
+    bottom:22px;
+
+    z-index:200;
+
+    width:52px;
+    height:52px;
 
     border-radius:50%;
 
     border:
         1px solid
-        rgba(255,188,219,.35);
+        rgba(255,175,214,.35);
 
     background:
-        radial-gradient(
-            circle,
-            #ff77b9,
-            #7d2556
-        );
+        rgba(20,10,22,.75);
 
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-size:60px;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 0 80px rgba(255,73,170,.2);
-
-    transition:.5s;
-
-}
-
-.lock:hover{
-
-    transform:
-        rotate(10deg)
-        scale(1.08);
-
-    box-shadow:
-        0 0 100px rgba(255,73,170,.5);
-
-}
-
-.vault-content{
-
-    opacity:0;
-
-    max-height:0;
-
-    overflow:hidden;
-
-    transform:translateY(30px);
-
-    transition:
-        1.2s ease;
-
-}
-
-.vault-content.open{
-
-    opacity:1;
-
-    max-height:700px;
-
-    transform:translateY(0);
-
-}
-
-.vault-content h2{
-
-    font-family:"Cinzel",serif;
-
-    font-size:
-        clamp(45px,8vw,95px);
-
-    color:#ff9ccc;
-
-}
-
-.vault-content .subtitle{
-
-    color:#e7c5d7;
-
-    margin:20px auto;
-
-    max-width:600px;
-
-    line-height:2;
-
-}
-
-.vault-content .final{
-
-    font-family:"Cinzel",serif;
-
-    font-size:22px;
+    backdrop-filter:blur(15px);
 
     color:#fff;
 
-    margin-top:40px;
+    cursor:pointer;
 
+    font-size:18px;
+
+    transition:.3s;
+}
+
+.music-button:hover{
+    background:var(--pink);
 }
 
 
-/* =====================================================
-   LETTER
-===================================================== */
-
-.letter-section{
-
-    background:#050205;
-
-}
-
-.letter{
-
-    max-width:780px;
-
-    margin:auto;
-
-    padding:70px;
-
-    border-radius:30px;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            rgba(255,124,188,.08),
-            rgba(255,255,255,.015)
-        );
-
-    border:
-        1px solid
-        rgba(255,173,215,.12);
-
-}
-
-.letter-top{
-
-    text-align:center;
-
-    color:#ff8fc7;
-
-    font-size:28px;
-
-    margin-bottom:45px;
-
-}
-
-.letter p{
-
-    color:#d3bbc8;
-
-    line-height:2.1;
-
-    font-size:14px;
-
-    margin-bottom:25px;
-
-}
-
-.signature{
-
-    margin-top:50px;
-
-    text-align:right;
-
-    font-family:"Cinzel",serif;
-
-    color:#ff9ccc;
-
-    font-size:22px;
-
-}
-
-
-/* =====================================================
+/* =========================================================
    FOOTER
-===================================================== */
+========================================================= */
 
 footer{
-
-    padding:80px 20px;
+    padding:70px 20px;
 
     text-align:center;
 
-    background:#030103;
+    background:#050207;
 
-    color:#725966;
+    color:#6f5968;
 
-    font-size:10px;
+    font-size:9px;
 
     letter-spacing:4px;
 
     text-transform:uppercase;
-
 }
 
 footer span{
-    color:#ff65af;
+    color:var(--pink);
 }
 
 
-/* =====================================================
-   FLOATING PARTICLES
-===================================================== */
+/* =========================================================
+   CONFETTI
+========================================================= */
 
-.particle{
-
+.confetti{
     position:fixed;
 
     pointer-events:none;
 
-    z-index:20;
+    z-index:999;
 
-    color:#ff87c3;
+    font-size:20px;
 
     animation:
-        particleMove
+        confettiFall
+        4s
         linear
         forwards;
-
 }
 
-@keyframes particleMove{
+@keyframes confettiFall{
 
-    0%{
-
-        opacity:0;
-
+    from{
         transform:
-            translateY(0)
-            scale(.4);
-
+            translateY(-20px)
+            rotate(0);
+        opacity:1;
     }
 
-    15%{
-        opacity:.7;
-    }
-
-    100%{
-
-        opacity:0;
-
+    to{
         transform:
-            translateY(-100vh)
-            scale(1.2)
-            rotate(180deg);
-
+            translateY(100vh)
+            rotate(540deg);
+        opacity:0;
     }
 
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-@media(max-width:700px){
-
-    nav{
-        padding:20px;
-    }
-
-    .nav-right{
-        display:none;
-    }
-
-    .hero h1{
-        letter-spacing:-2px;
-    }
-
-    .moon{
-        top:12%;
-    }
-
-    .hero-ship{
-        bottom:80px;
-    }
+@media(max-width:750px){
 
     section{
-        padding:110px 6%;
+        padding:100px 6%;
     }
 
-    .map-wrapper{
-        min-height:560px;
+    .letter-card{
+        padding:32px 24px;
     }
 
-    .map-island{
-        width:70px;
-        height:70px;
-        font-size:25px;
+    .letter-content{
+        font-size:19px;
     }
 
-    .map-island span{
-        top:85px;
-        font-size:9px;
-    }
-
-    .island-a{
-        left:8%;
-    }
-
-    .island-b{
-        left:38%;
-    }
-
-    .island-c{
-        right:8%;
-    }
-
-    .island-d{
-        right:5%;
-        bottom:13%;
-    }
-
-    .compass{
-        width:55px;
-        height:55px;
-        right:20px;
-        top:20px;
-        font-size:18px;
-    }
-
-    .coordinates-grid{
+    .memory-grid{
         grid-template-columns:1fr;
+        max-width:400px;
     }
 
-    .coordinate{
-        border-right:none;
-        border-bottom:
-            1px solid
-            rgba(255,255,255,.08);
+    .memory{
+        height:350px;
     }
 
-    .coordinate:last-child{
-        border-bottom:none;
+    .timeline::before{
+        left:10px;
     }
 
-    .letter{
-        padding:40px 25px;
+    .timeline-item,
+    .timeline-item:nth-child(even){
+        width:100%;
+        margin-left:0;
+        padding:
+            25px
+            25px
+            25px
+            35px;
+        text-align:left;
+    }
+
+    .timeline-item:nth-child(odd){
+        text-align:left;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot{
+        left:4px;
+        right:auto;
+    }
+
+    .constellation{
+        height:350px;
+    }
+
+    .hero-title{
+        font-size:70px;
     }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<div class="noise"></div>
+<!-- =========================================================
+     CURSOR
+========================================================= -->
 
-<div class="cursor-glow" id="glow"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
 
 
-<!-- =====================================================
-     NAV
-===================================================== -->
+<!-- =========================================================
+     INTRO
+========================================================= -->
 
-<nav id="nav">
+<div class="intro" id="intro">
 
-    <div class="logo">
-        VELYTA<span>♡</span>
+    <div class="intro-inner">
+
+        <div class="intro-small">
+            a little something for you
+        </div>
+
+        <div class="intro-title">
+
+            for
+
+            <br>
+
+            <span>velyta</span>
+
+        </div>
+
+        <p class="intro-sub">
+
+            i could have written you a normal letter.
+
+            but you deserve something a little more
+            beautiful than normal.
+
+        </p>
+
+        <button
+            class="enter-button"
+            id="enterButton"
+        >
+            enter my universe ♡
+        </button>
+
     </div>
 
-    <div class="nav-right">
-
-        <a href="#map">
-            map
-        </a>
-
-        <a href="#love">
-            love
-        </a>
-
-        <a href="#vault">
-            treasure
-        </a>
-
-    </div>
-
-</nav>
+</div>
 
 
-<!-- =====================================================
+<!-- =========================================================
+     MUSIC
+========================================================= -->
+
+<button
+    class="music-button"
+    id="musicButton"
+    aria-label="Toggle music"
+>
+    ♫
+</button>
+
+<audio
+    id="music"
+    loop
+>
+    <!--
+        GANTI FILE INI DENGAN MUSIK KAMU
+
+        contoh:
+        src="music.mp3"
+
+    -->
+</audio>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+<!-- =========================================================
      HERO
-===================================================== -->
+========================================================= -->
 
 <section class="hero">
 
-    <div class="stars"></div>
+    <div class="star-field"></div>
 
     <div class="moon"></div>
 
     <div class="hero-content">
 
-        <div class="eyebrow">
-            captain's private log
+        <div class="hero-kicker">
+            somewhere between earth & the stars
         </div>
 
-        <h1>
+        <h1 class="hero-title">
 
-            THE
+            my little
 
-            <span class="pink">
-                FORBIDDEN
+            <br>
+
+            <span class="outline">
+                universe
             </span>
 
             <br>
 
-            <span class="solid">
-                PINK SEA
+            <span class="pink">
+                is you.
             </span>
 
         </h1>
 
-        <p class="hero-desc">
+        <p class="hero-description">
 
-            legend says that somewhere beyond
-            the seven seas lies a treasure
-            worth more than every piece of gold
-            ever buried by pirates.
+            there are billions of people,
+            millions of places,
+            and countless moments in this world.
 
-            i sailed there once.
-
-            and i found you.
+            somehow, my favorite one
+            is still the one that has you in it.
 
         </p>
 
         <a
-            href="#map"
-            class="enter"
+            href="#letter"
+            class="scroll-down"
         >
-
-            enter the map
-
-            <span>→</span>
-
+            discover my heart
+            ↓
         </a>
 
     </div>
 
 
-    <div class="hero-ship">
-        🏴‍☠️
+    <!-- floating hearts -->
+
+    <div
+        class="floating-heart"
+        style="
+        left:10%;
+        bottom:-20px;
+        font-size:20px;
+        animation-duration:9s;
+        "
+    >
+        ♡
     </div>
 
-    <div class="ocean"></div>
-
-</section>
-
-
-<!-- =====================================================
-     MAP
-===================================================== -->
-
-<section
-    class="map-section"
-    id="map"
->
-
-    <div class="section-number">
-        chapter 01 — the journey
+    <div
+        class="floating-heart"
+        style="
+        left:30%;
+        bottom:-40px;
+        font-size:14px;
+        animation-duration:12s;
+        animation-delay:2s;
+        "
+    >
+        ✦
     </div>
 
-    <h2 class="section-title">
+    <div
+        class="floating-heart"
+        style="
+        left:75%;
+        bottom:-20px;
+        font-size:25px;
+        animation-duration:10s;
+        animation-delay:1s;
+        "
+    >
+        ♡
+    </div>
 
-        every road leads to
-        <em>you</em>
-
-    </h2>
-
-    <p class="section-desc">
-
-        i could draw a thousand maps,
-        mark every island,
-        every storm and every sea.
-
-        somehow,
-        the destination would still be the same.
-
-    </p>
-
-
-    <div class="map-wrapper">
-
-        <div class="map-label">
-            chart no. 01 — velyta
-        </div>
-
-        <div class="route"></div>
-
-        <div class="compass">
-            N
-        </div>
-
-
-        <div class="map-island island-a">
-
-            🌙
-
-            <span>
-                the night we met
-            </span>
-
-        </div>
-
-
-        <div class="map-island island-b">
-
-            💌
-
-            <span>
-                every little memory
-            </span>
-
-        </div>
-
-
-        <div class="map-island island-c">
-
-            🌹
-
-            <span>
-                every reason i stay
-            </span>
-
-        </div>
-
-
-        <div class="map-island island-d">
-
-            💎
-
-            <span>
-                the final destination
-            </span>
-
-        </div>
-
+    <div
+        class="floating-heart"
+        style="
+        left:90%;
+        bottom:-40px;
+        font-size:13px;
+        animation-duration:13s;
+        animation-delay:3s;
+        "
+    >
+        ✦
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     LOVE
-===================================================== -->
+<!-- =========================================================
+     LETTER
+========================================================= -->
 
 <section
-    class="love-section"
-    id="love"
+    class="letter-section"
+    id="letter"
 >
 
-    <div class="section-number">
-        chapter 02 — impossible measurement
+    <div class="section-kicker">
+        chapter one — words
     </div>
 
     <h2 class="section-title">
 
-        how much do i
-        <em>love you?</em>
+        a letter i
+        <span>couldn't send</span>
 
     </h2>
 
-    <p class="section-desc">
+    <p class="section-description">
 
-        i tried measuring it with distance,
-        time, oceans and stars.
-
-        none of them were big enough.
+        because some feelings are too big
+        to fit inside an ordinary text message.
 
     </p>
 
 
-    <div class="ocean-card">
+    <div class="letter-card">
 
-        <div class="love-orbit">
-
-            <div class="orbit-dot"></div>
-
-        </div>
-
-        <div class="big-heart">
+        <div class="letter-seal">
             ♡
         </div>
 
-        <div class="love-copy">
 
-            <strong>
-                beyond measurement
-            </strong>
+        <div class="letter-content">
 
-            <p>
-                no coordinates found.
-                no ending discovered.
-            </p>
+            <div class="letter-line">
+                dear velyta,
+            </div>
+
+            <div class="letter-line">
+                i don't think i ever found the perfect
+                words for what you mean to me.
+            </div>
+
+            <div class="letter-line">
+                somehow you became one of those people
+                who can make an ordinary day feel
+                completely different.
+            </div>
+
+            <div class="letter-line">
+                sometimes i look at everything we've been
+                through and wonder how we managed
+                to keep finding our way back to each other.
+            </div>
+
+            <div class="letter-line">
+                maybe that's what makes this special.
+                not that everything is always perfect,
+                but that somehow, you're still the person
+                i want beside me.
+            </div>
+
+            <div class="letter-line">
+                and if i could keep only one thing
+                from every day we've shared,
+                i'd keep the feeling of having you
+                in my life.
+            </div>
+
+        </div>
+
+
+        <div class="letter-controls">
+
+            <button
+                class="reveal-button"
+                id="revealLetter"
+            >
+                reveal the next line ♡
+            </button>
+
+            <div class="letter-progress">
+
+                <div
+                    class="letter-progress-fill"
+                    id="letterFill"
+                ></div>
+
+            </div>
 
         </div>
 
@@ -1749,83 +1500,160 @@ footer span{
 </section>
 
 
-<!-- =====================================================
-     COORDINATES
-===================================================== -->
+<!-- =========================================================
+     MEMORIES
+========================================================= -->
 
-<section class="coordinates">
+<section class="memories-section">
 
-    <div class="section-number">
-        chapter 03 — coordinates
+    <div class="section-kicker">
+        chapter two — memories
     </div>
 
     <h2 class="section-title">
 
-        my heart's
-        <em>coordinates</em>
+        little pieces of
+        <span>us</span>
 
     </h2>
 
-    <p class="section-desc">
+    <p class="section-description">
 
-        there are some places that
-        don't exist on any map.
+        these aren't just memories.
 
-        you are one of them.
+        they're tiny places in time
+        where my heart remembers
+        being happy.
+
+        tap each one.
 
     </p>
 
 
-    <div class="coordinates-grid">
+    <div class="memory-grid">
 
 
-        <div class="coordinate">
+        <div
+            class="memory"
+            tabindex="0"
+        >
 
-            <div class="icon">
-                ♡
+            <div class="memory-inner">
+
+                <div class="memory-front">
+
+                    <div class="memory-photo">
+                        🌙
+                    </div>
+
+                    <div class="memory-label">
+                        late night thoughts
+                    </div>
+
+                </div>
+
+                <div class="memory-back">
+
+                    <p>
+
+                        <strong>
+                            01 — the nights
+                        </strong>
+
+                        somehow our conversations
+                        always became longer than
+                        we planned.
+
+                        and honestly,
+                        i never wanted them to end.
+
+                    </p>
+
+                </div>
+
             </div>
-
-            <h3>
-                100%
-            </h3>
-
-            <p>
-                reserved for you
-            </p>
 
         </div>
 
 
-        <div class="coordinate">
+        <div
+            class="memory"
+            tabindex="0"
+        >
 
-            <div class="icon">
-                ∞
+            <div class="memory-inner">
+
+                <div class="memory-front">
+
+                    <div class="memory-photo">
+                        🌸
+                    </div>
+
+                    <div class="memory-label">
+                        the little things
+                    </div>
+
+                </div>
+
+                <div class="memory-back">
+
+                    <p>
+
+                        <strong>
+                            02 — the details
+                        </strong>
+
+                        it's funny how the smallest
+                        things about you became some
+                        of my favorite things.
+
+                    </p>
+
+                </div>
+
             </div>
-
-            <h3>
-                ∞
-            </h3>
-
-            <p>
-                distance my love can travel
-            </p>
 
         </div>
 
 
-        <div class="coordinate">
+        <div
+            class="memory"
+            tabindex="0"
+        >
 
-            <div class="icon">
-                ⚓
+            <div class="memory-inner">
+
+                <div class="memory-front">
+
+                    <div class="memory-photo">
+                        💗
+                    </div>
+
+                    <div class="memory-label">
+                        still choosing you
+                    </div>
+
+                </div>
+
+                <div class="memory-back">
+
+                    <p>
+
+                        <strong>
+                            03 — always
+                        </strong>
+
+                        maybe love isn't about
+                        finding someone perfect.
+
+                        maybe it's about finding
+                        someone you keep choosing.
+
+                    </p>
+
+                </div>
+
             </div>
-
-            <h3>
-                V
-            </h3>
-
-            <p>
-                where my heart decided to anchor
-            </p>
 
         </div>
 
@@ -1835,188 +1663,423 @@ footer span{
 </section>
 
 
-<!-- =====================================================
-     VAULT
-===================================================== -->
+<!-- =========================================================
+     TIMELINE
+========================================================= -->
+
+<section class="timeline-section">
+
+    <div class="section-kicker">
+        chapter three — our story
+    </div>
+
+    <h2 class="section-title">
+
+        from then
+        <span>to now</span>
+
+    </h2>
+
+    <p class="section-description">
+
+        every relationship has little chapters.
+
+        these are just a few pages
+        from ours.
+
+    </p>
+
+
+    <div class="timeline">
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-date">
+                chapter 01
+            </div>
+
+            <div class="timeline-title">
+                the beginning
+            </div>
+
+            <div class="timeline-text">
+                two people,
+                one beginning,
+                and no idea how much
+                the story would eventually mean.
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-date">
+                chapter 02
+            </div>
+
+            <div class="timeline-title">
+                getting closer
+            </div>
+
+            <div class="timeline-text">
+                little conversations
+                slowly became important parts
+                of ordinary days.
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-date">
+                chapter 03
+            </div>
+
+            <div class="timeline-title">
+                everything in between
+            </div>
+
+            <div class="timeline-text">
+                good days,
+                difficult days,
+                laughter,
+                arguments,
+                apologies,
+                and everything that made us us.
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-date">
+                chapter 04
+            </div>
+
+            <div class="timeline-title">
+                still here
+            </div>
+
+            <div class="timeline-text">
+                and somehow,
+                after everything,
+                here we are.
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONSTELLATION
+========================================================= -->
+
+<section class="constellation-section">
+
+    <div class="section-kicker">
+        chapter four — the stars
+    </div>
+
+    <h2 class="section-title">
+
+        make our own
+        <span>constellation</span>
+
+    </h2>
+
+    <p class="section-description">
+
+        tap every star.
+
+        when they're all awake,
+        you'll see what they spell.
+
+    </p>
+
+
+    <div class="constellation">
+
+        <svg
+            viewBox="0 0 900 470"
+            preserveAspectRatio="xMidYMid meet"
+        >
+
+            <path
+                class="constellation-line"
+                d="
+                M170 170
+                L290 90
+                L430 155
+                L450 290
+                L570 155
+                L710 90
+                L730 175
+                L630 320
+                L450 385
+                L270 320
+                Z
+                "
+            />
+
+
+            <circle
+                class="constellation-star"
+                cx="170"
+                cy="170"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="290"
+                cy="90"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="430"
+                cy="155"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="450"
+                cy="290"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="570"
+                cy="155"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="710"
+                cy="90"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="730"
+                cy="175"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="630"
+                cy="320"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="450"
+                cy="385"
+                r="7"
+            />
+
+            <circle
+                class="constellation-star"
+                cx="270"
+                cy="320"
+                r="7"
+            />
+
+        </svg>
+
+    </div>
+
+
+    <div class="constellation-message">
+
+        <span id="starCount">
+            0
+        </span>
+
+        / 10 stars discovered
+
+    </div>
+
+
+    <div
+        class="constellation-final"
+        id="constellationFinal"
+    >
+
+        <h3>
+            you are my favorite constellation.
+        </h3>
+
+        <p>
+
+            even in a sky full of stars,
+            somehow my eyes would still
+            look for yours.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LOVE METER
+========================================================= -->
+
+<section class="love-section">
+
+    <div class="section-kicker">
+        chapter five — impossible numbers
+    </div>
+
+    <h2 class="section-title">
+
+        so...
+        <span>how much?</span>
+
+    </h2>
+
+    <p class="section-description">
+
+        i tried to calculate it.
+
+        the result stopped making sense.
+
+    </p>
+
+
+    <div class="love-number">
+        ∞
+    </div>
+
+    <div class="love-unit">
+        times deeper than the ocean
+    </div>
+
+
+    <div class="love-meter">
+
+        <div
+            class="love-meter-fill"
+            id="loveMeter"
+        ></div>
+
+    </div>
+
+
+    <div class="love-caption">
+
+        measurement failed.
+        love continues anyway.
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SECRET
+========================================================= -->
 
 <section
-    class="vault"
-    id="vault"
+    class="secret-section"
+    id="secret"
 >
 
-    <div class="vault-inner">
+    <div class="secret-inner">
 
-        <div class="section-number">
-            final chapter — the treasure
+        <div class="section-kicker">
+            final chapter — one last thing
         </div>
 
         <h2 class="section-title">
 
-            one last
-            <em>secret</em>
+            there is one thing
+            <span>left</span>
 
         </h2>
 
-        <p class="section-desc">
+        <p class="section-description">
 
-            every pirate dreams about opening
-            a treasure vault.
-
-            mine is a little different.
+            i hid the most important part
+            behind this little lock.
 
         </p>
 
 
         <div
-            class="lock"
-            onclick="openVault()"
+            class="secret-lock"
+            id="secretLock"
         >
-
             🔐
-
         </div>
 
-        <p
-            style="
-            color:#987b8b;
-            font-size:10px;
-            letter-spacing:3px;
-            text-transform:uppercase;
-            "
-        >
-
-            touch the lock
-
-        </p>
-
 
         <div
-            class="vault-content"
-            id="vaultContent"
+            class="secret-content"
+            id="secretContent"
         >
+
+            <div class="final-heart">
+                ♡
+            </div>
 
             <h2>
                 VELYTA
             </h2>
 
-            <p class="subtitle">
+            <p>
 
-                after crossing every ocean,
-                surviving every storm,
-                and searching every corner
-                of the world...
+                if i had to choose one place
+                in this entire universe
+                where i would always want
+                to return...
 
-                i realized something.
-
-            </p>
-
-            <p class="final">
-
-                the treasure was never gold.
-
-                <br>
-
-                it was you. ♡
+                it would be wherever you are.
 
             </p>
 
-        </div>
+            <p>
 
-    </div>
+                thank you for being
+                one of the most beautiful
+                chapters of my life.
 
-</section>
+            </p>
 
+            <p>
 
-<!-- =====================================================
-     LETTER
-===================================================== -->
+                and if there are a thousand
+                more chapters waiting for us,
 
-<section class="letter-section">
+                i hope i get to read
+                every single one with you.
 
-    <div class="section-number">
-        captain's final note
-    </div>
-
-
-    <div class="letter">
-
-        <div class="letter-top">
-            ⚓ ♡ ☠ ♡ ⚓
-        </div>
-
-
-        <p>
-            dear velyta,
-        </p>
-
-
-        <p>
-
-            if my heart were a pirate ship,
-            i'd sail it across every ocean
-            just to find you.
-
-        </p>
-
-
-        <p>
-
-            i'd cross storms,
-            follow stars,
-            get lost on islands
-            nobody has ever heard of,
-            and keep sailing even
-            when there was no land
-            anywhere in sight.
-
-        </p>
-
-
-        <p>
-
-            because somehow,
-            every direction
-            always brings me back to you.
-
-        </p>
-
-
-        <p>
-
-            maybe love isn't supposed
-            to have a number.
-
-            maybe it isn't supposed
-            to have an ending.
-
-        </p>
-
-
-        <p>
-
-            all i know is that
-            if i had one ship,
-            one map,
-            one compass,
-            and one final destination...
-
-        </p>
-
-
-        <p>
-
-            i'd still choose you.
-
-        </p>
-
-
-        <div class="signature">
-
-            your captain,
-
-            <br>
-
-            vega ♡
+            </p>
 
         </div>
 
@@ -2027,33 +2090,119 @@ footer span{
 
 <footer>
 
-    made across oceans
+    made with
     <span>♡</span>
     for velyta
 
 </footer>
 
 
+</main>
+
+
 <script>
 
-/* =====================================================
-   NAVIGATION
-===================================================== */
+/* =========================================================
+   INTRO
+========================================================= */
 
-const nav =
-    document.getElementById("nav");
+const intro =
+    document.getElementById("intro");
+
+const enterButton =
+    document.getElementById("enterButton");
+
+enterButton.addEventListener(
+    "click",
+    () => {
+
+        intro.classList.add("hidden");
+
+        setTimeout(
+            () => {
+                document.body.style.overflowX="hidden";
+            },
+            1000
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+const cursorGlow =
+    document.getElementById("cursorGlow");
 
 window.addEventListener(
-    "scroll",
-    ()=>{
+    "mousemove",
+    (event) => {
 
-        if(window.scrollY > 50){
+        cursorGlow.style.left =
+            event.clientX + "px";
 
-            nav.classList.add("scrolled");
+        cursorGlow.style.top =
+            event.clientY + "px";
 
-        }else{
+    }
+);
 
-            nav.classList.remove("scrolled");
+
+/* =========================================================
+   LETTER REVEAL
+========================================================= */
+
+const letterLines =
+    [
+        ...document.querySelectorAll(
+            ".letter-line"
+        )
+    ];
+
+const revealButton =
+    document.getElementById(
+        "revealLetter"
+    );
+
+const letterFill =
+    document.getElementById(
+        "letterFill"
+    );
+
+let currentLine=0;
+
+revealButton.addEventListener(
+    "click",
+    () => {
+
+        if(currentLine < letterLines.length){
+
+            letterLines[
+                currentLine
+            ].classList.add("visible");
+
+            currentLine++;
+
+            const percentage =
+                (
+                    currentLine /
+                    letterLines.length
+                ) * 100;
+
+            letterFill.style.width =
+                percentage + "%";
+
+            if(
+                currentLine ===
+                letterLines.length
+            ){
+
+                revealButton.textContent =
+                    "my whole heart is open ♡";
+
+            }
 
         }
 
@@ -2061,104 +2210,286 @@ window.addEventListener(
 );
 
 
-/* =====================================================
-   CURSOR GLOW
-===================================================== */
+/* =========================================================
+   MEMORY CARDS
+========================================================= */
 
-const glow =
-    document.getElementById("glow");
+const memories =
+    document.querySelectorAll(
+        ".memory"
+    );
 
-window.addEventListener(
-    "mousemove",
-    (e)=>{
+memories.forEach(
+    (memory) => {
 
-        glow.style.left =
-            e.clientX+"px";
+        memory.addEventListener(
+            "click",
+            () => {
 
-        glow.style.top =
-            e.clientY+"px";
+                memory.classList.toggle(
+                    "flipped"
+                );
+
+            }
+        );
+
+        memory.addEventListener(
+            "keydown",
+            (event) => {
+
+                if(
+                    event.key === "Enter" ||
+                    event.key === " "
+                ){
+
+                    event.preventDefault();
+
+                    memory.classList.toggle(
+                        "flipped"
+                    );
+
+                }
+
+            }
+        );
 
     }
 );
 
 
-/* =====================================================
-   TREASURE VAULT
-===================================================== */
+/* =========================================================
+   CONSTELLATION
+========================================================= */
 
-function openVault(){
+const constellationStars =
+    document.querySelectorAll(
+        ".constellation-star"
+    );
 
-    const vault =
-        document.getElementById(
-            "vaultContent"
+const starCount =
+    document.getElementById(
+        "starCount"
+    );
+
+const constellationFinal =
+    document.getElementById(
+        "constellationFinal"
+    );
+
+let discoveredStars=0;
+
+constellationStars.forEach(
+    (star) => {
+
+        star.addEventListener(
+            "click",
+            () => {
+
+                if(
+                    !star.classList.contains(
+                        "active"
+                    )
+                ){
+
+                    star.classList.add(
+                        "active"
+                    );
+
+                    discoveredStars++;
+
+                    starCount.textContent =
+                        discoveredStars;
+
+                    createSpark(
+                        star
+                    );
+
+                    if(
+                        discoveredStars ===
+                        constellationStars.length
+                    ){
+
+                        constellationFinal
+                            .classList
+                            .add("show");
+
+                        createConfetti(35);
+
+                    }
+
+                }
+
+            }
         );
 
-    vault.classList.add("open");
-
-    createParticles(35);
-
-}
+    }
+);
 
 
-/* =====================================================
-   PARTICLES
-===================================================== */
+/* =========================================================
+   SPARK
+========================================================= */
 
-function createParticle(){
+function createSpark(){
 
-    const p =
-        document.createElement("div");
+    const spark =
+        document.createElement(
+            "div"
+        );
 
-    p.className="particle";
+    spark.textContent="✦";
 
-    const symbols=[
-        "♡",
-        "✦",
-        "·",
-        "♥"
-    ];
+    spark.style.position="fixed";
 
-    p.innerHTML =
-        symbols[
-            Math.floor(
-                Math.random()*symbols.length
-            )
-        ];
-
-    p.style.left =
+    spark.style.left=
         Math.random()*100+"vw";
 
-    p.style.bottom="-20px";
+    spark.style.top=
+        Math.random()*100+"vh";
 
-    p.style.fontSize =
-        (10+Math.random()*20)+"px";
+    spark.style.color=
+        "#ff8fc4";
 
-    p.style.animationDuration =
-        (5+Math.random()*5)+"s";
+    spark.style.pointerEvents=
+        "none";
 
-    document.body.appendChild(p);
+    spark.style.zIndex="999";
+
+    spark.style.fontSize=
+        (10+Math.random()*18)+"px";
+
+    document.body.appendChild(
+        spark
+    );
+
+    spark.animate(
+        [
+            {
+                opacity:1,
+                transform:"scale(.5)"
+            },
+            {
+                opacity:0,
+                transform:"scale(2)"
+            }
+        ],
+        {
+            duration:900
+        }
+    );
 
     setTimeout(
-        ()=>{
-            p.remove();
-        },
-        11000
+        () => spark.remove(),
+        1000
     );
 
 }
 
 
-/* gentle ambient particles */
+/* =========================================================
+   LOVE METER
+========================================================= */
 
-setInterval(
-    createParticle,
-    2500
+const loveMeter =
+    document.getElementById(
+        "loveMeter"
+    );
+
+let meterStarted=false;
+
+const loveObserver =
+    new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach(
+                (entry) => {
+
+                    if(
+                        entry.isIntersecting &&
+                        !meterStarted
+                    ){
+
+                        meterStarted=true;
+
+                        setTimeout(
+                            () => {
+
+                                loveMeter.style.width =
+                                    "100%";
+
+                            },
+                            300
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold:.3
+        }
+    );
+
+loveObserver.observe(
+    document.querySelector(
+        ".love-section"
+    )
 );
 
 
-/* burst */
+/* =========================================================
+   SECRET
+========================================================= */
 
-function createParticles(amount){
+const secretLock =
+    document.getElementById(
+        "secretLock"
+    );
+
+const secretContent =
+    document.getElementById(
+        "secretContent"
+    );
+
+let secretOpened=false;
+
+secretLock.addEventListener(
+    "click",
+    () => {
+
+        if(!secretOpened){
+
+            secretOpened=true;
+
+            secretContent.classList.add(
+                "open"
+            );
+
+            secretLock.textContent="♡";
+
+            createConfetti(60);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CONFETTI HEARTS
+========================================================= */
+
+function createConfetti(amount){
+
+    const symbols=[
+        "♡",
+        "♥",
+        "✦",
+        "✧",
+        "💗"
+    ];
 
     for(
         let i=0;
@@ -2167,11 +2498,194 @@ function createParticles(amount){
     ){
 
         setTimeout(
-            createParticle,
-            i*70
+            () => {
+
+                const piece =
+                    document.createElement(
+                        "div"
+                    );
+
+                piece.className=
+                    "confetti";
+
+                piece.textContent=
+                    symbols[
+                        Math.floor(
+                            Math.random()*
+                            symbols.length
+                        )
+                    ];
+
+                piece.style.left=
+                    Math.random()*100+"vw";
+
+                piece.style.top=
+                    "-20px";
+
+                piece.style.color=
+                    Math.random()>.5
+                    ? "#ff82bd"
+                    : "#ffd2e7";
+
+                piece.style.animationDuration=
+                    (2.5+
+                    Math.random()*2.5)
+                    +"s";
+
+                document.body.appendChild(
+                    piece
+                );
+
+                setTimeout(
+                    () => piece.remove(),
+                    5000
+                );
+
+            },
+            i*45
         );
 
     }
+
+}
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+const musicButton =
+    document.getElementById(
+        "musicButton"
+    );
+
+const music =
+    document.getElementById(
+        "music"
+    );
+
+let playing=false;
+
+musicButton.addEventListener(
+    "click",
+    async () => {
+
+        if(
+            !music.getAttribute("src")
+        ){
+
+            musicButton.textContent="♡";
+
+            return;
+
+        }
+
+        if(!playing){
+
+            try{
+
+                await music.play();
+
+                playing=true;
+
+                musicButton.textContent="♫";
+
+            }catch(error){
+
+                musicButton.textContent="♡";
+
+            }
+
+        }else{
+
+            music.pause();
+
+            playing=false;
+
+            musicButton.textContent="♫";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RANDOM AMBIENT HEARTS
+========================================================= */
+
+function ambientHeart(){
+
+    const heart =
+        document.createElement(
+            "div"
+        );
+
+    heart.className=
+        "floating-heart";
+
+    heart.textContent=
+        Math.random()>.5
+        ? "♡"
+        : "✦";
+
+    heart.style.left=
+        Math.random()*100+"vw";
+
+    heart.style.bottom="-30px";
+
+    heart.style.fontSize=
+        (10+
+        Math.random()*20)
+        +"px";
+
+    heart.style.animationDuration=
+        (7+
+        Math.random()*6)
+        +"s";
+
+    document.querySelector(
+        ".hero"
+    ).appendChild(
+        heart
+    );
+
+    setTimeout(
+        () => heart.remove(),
+        14000
+    );
+
+}
+
+setInterval(
+    ambientHeart,
+    2200
+);
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+if(
+    window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches
+){
+
+    document.querySelectorAll(
+        "*"
+    ).forEach(
+        (element) => {
+
+            element.style.animationDuration=
+                "0.01ms";
+
+            element.style.transitionDuration=
+                "0.01ms";
+
+        }
+    );
 
 }
 
